@@ -26,16 +26,37 @@ $tel = $_POST["tel"];
 $adresse = $_POST["adresse"];
 $formdata = [$nom,$prenom,$mail,$tel,$adresse];
 $Err = "";
+
+function validatePhoneNumber ($string) {  
+    $phoneNumberArr = str_split($string); 
+    if($phoneNumberArr[0] != 0) {   
+        return false;
+    }
+    foreach($phoneNumberArr as $value) { 
+        if(!is_numeric($value)) { 
+            return false;
+        }
+    }
+    if(strlen($string) != 10) { 
+        return false;
+    }
+    return true;
+}
+
+
             for($i=0;$i<=4;$i++){
                 if (!($formdata[$i])) {
                     $Err = "Champs Manquants";
                     break;
                 }
-                }             
-            
+                }  
+                if(validatePhoneNumber($tel) === false){
+                    $Err = "Le numero de telephone ne doit contenir que des chiffres";
+                    echo'<div>'.$Err.'</div>';
+                }       
                 if (strlen($prenom)<3){
                     $Err= "Le prenom doit comporter <b>au moins 3 caractères</b><br>";
-                }
+                } 
                 if (strlen($nom)<3){
                     $Err= "Le nom doit comporter <b>au moins 3 caractères</b><br>";
                 }  
@@ -47,17 +68,16 @@ $Err = "";
                 }
                 if($aroba==false){
                     $Err= "Votre email doit contenir un <b>'@'</b>";
-                }
+                } 
                 if(!$Err)  {
                     print_r($formdata);
                 }
               else{
-                echo '<div class="alert">'.$Err.'</div>';
+                echo '<div>'.$Err.'</div>';
               }
-
-             
-
-               
+            
+            
+                             
 ?>
 </body>
 </html>
