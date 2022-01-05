@@ -5,3 +5,6 @@ form{
     display:flex;
     flex-direction: column;
 }
+b{
+    color:red;
+}

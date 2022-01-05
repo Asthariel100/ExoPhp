@@ -20,8 +20,8 @@
 $nom = $_POST["nom"];
 $prenom = $_POST["prenom"];
 $mail = $_POST["mail"];
-$point = strpos($email,".");
-$aroba = strpos($email,"@");
+$point = strpos($mail,".");
+$aroba = strpos($mail,"@");;
 $tel = $_POST["tel"];
 $adresse = $_POST["adresse"];
 $formdata = [$nom,$prenom,$mail,$tel,$adresse];
@@ -31,24 +31,29 @@ $Err = "";
                     $Err = "Champs Manquants";
                     echo '<div class="alert">'.$Err.'</div>';
                     break;
-                }
+                }             
             }
                 if(!$Err)  {
                     print_r($formdata);
                 }
-
-                if($point==''){
-                    echo "Votre email doit comporter un <b>point</b>";
-                    
+                if (strlen($prenom)<3){
+                    echo "Le prenom doit comporter <b>au moins 3 caractères</b><br>";
                 }
-                elseif($aroba==''){
+                if (strlen($nom)<3){
+                    echo "Le nom doit comporter <b>au moins 3 caractères</b><br>";
+                }  
+                if (strlen($adresse)<10){
+                    echo "Votre addresse doit comporter <b>au moins 10 caractères</b><br>";
+                }
+                if($point==false){
+                    echo "Votre email doit comporter un <b>point</b>";                   
+                }
+                if($aroba==false){
                     echo "Votre email doit contenir un <b>'@'</b>";
-                    
                 }
-                else {
-                    echo "Votre email est valide";
-                }
+              
 
+               
 ?>
 </body>
 </html>
